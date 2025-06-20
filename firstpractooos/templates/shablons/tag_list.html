@@ -1,0 +1,26 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>Теги</h1>
+    
+    <div class="tags-grid">
+        {% for tag in tags %}
+        <div class="tag-card">
+            <h3>
+                <a href="{% url 'firstpractooos:catalog' %}?tag_id={{ tag.id }}">
+                    {{ tag.tag_name }}
+                </a>
+            </h3>
+            {% if tag.description %}
+            <p>{{ tag.description }}</p>
+            {% endif %}
+            <a href="{% url 'firstpractooos:catalog' %}?tag_id={{ tag.id }}">
+                Товары ({{ tag.product_set.count }})
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

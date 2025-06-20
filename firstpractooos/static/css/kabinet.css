@@ -1,0 +1,93 @@
+.user-dashboard-wrapper {
+  display: flex;
+  gap: 30px;
+  padding: 40px;
+}
+
+.user-dashboard-sidebar {
+  width: 250px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.user-card {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.user-avatar-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-meta {
+  margin-top: 10px;
+}
+
+.user-fullname {
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user-status {
+  font-size: 14px;
+  color: gray;
+}
+
+.user-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-menu-item {
+  margin: 10px 0;
+}
+
+.user-menu-item a {
+  text-decoration: none;
+  color: #333;
+}
+
+.user-menu-item.active a {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.user-dashboard-main {
+  flex-grow: 1;
+}
+
+.dashboard-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-info-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.section-subheading {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.user-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 15px;
+}
+
+.user-info-label {
+  font-weight: bold;
+}
+
+.user-info-value {
+  margin-left: 5px;
+}

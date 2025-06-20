@@ -1,0 +1,128 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block title %}MotoMarket - Корзина{% endblock %}
+
+{% block content %}
+<section class="cart">
+    <div class="container">
+        <h1 class="section-title slide-up">Ваша корзина</h1>
+        
+        <div class="cart__inner">
+            <div class="cart__items fade-in delay-1">
+                {% if cart_items %}
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Итого</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                        <tr class="cart-item">
+                            <td class="cart-item__product">
+                                <div class="cart-item__image">
+                                    <img src="{{ item.bike.image.url }}" alt="{{ item.bike.name }}">
+                                </div>
+                                <div class="cart-item__info">
+                                    <h3 class="cart-item__title">{{ item.bike.name }}</h3>
+                                    <div class="cart-item__meta">{{ item.bike.engine }} cc</div>
+                                </div>
+                            </td>
+                            <td class="cart-item__price">{{ item.bike.price }} ₽</td>
+                            <td class="cart-item__quantity">
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" data-id="{{ item.bike.id }}">-</button>
+                                    <input type="number" value="{{ item.quantity }}" min="1" class="quantity-input">
+                                    <button class="quantity-btn plus" data-id="{{ item.bike.id }}">+</button>
+                                </div>
+                            </td>
+                            <td class="cart-item__total">{{ item.total_price }} ₽</td>
+                            <td class="cart-item__remove">
+                                <button class="remove-btn" data-id="{{ item.bike.id }}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="cart-empty">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Ваша корзина пуста</p>
+                    <a href="{% url 'firstpractooos:catalog' %}" class="btn btn--primary">Перейти в каталог</a>
+                </div>
+                {% endif %}
+            </div>
+            
+            {% if cart_items %}
+            <div class="cart__summary slide-up delay-2">
+                <h3 class="summary-title">Итого</h3>
+                <div class="summary-row">
+                    <span>Товаров:</span>
+                    <span>{{ cart_total_quantity }} шт.</span>
+                </div>
+                <div class="summary-row">
+                    <span>Сумма:</span>
+                    <span>{{ cart_total_price }} ₽</span>
+                </div>
+                <div class="summary-row total">
+                    <span>К оплате:</span>
+                    <span>{{ cart_total_price }} ₽</span>
+                </div>
+                
+                <div class="coupon-form">
+                    <input type="text" placeholder="Промокод" class="form-input">
+                    <button class="btn btn--small">Применить</button>
+                </div>
+                
+                <button class="btn btn--primary btn--block checkout-btn">Оформить заказ</button>
+                
+                <div class="secure-payment">
+                    <i class="fas fa-lock"></i>
+                    <span>Безопасная оплата</span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% if cart_items %}
+        <div class="cart__continue fade-in delay-3">
+            <a href="{% url 'firstpractooos:catalog' %}" class="btn btn--outline">
+                <i class="fas fa-arrow-left"></i> Продолжить покупки
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% if cart_items %}
+<section class="recommendations">
+    <div class="container">
+        <h2 class="section-title">Рекомендуем к покупке</h2>
+        <div class="recommendations-slider">
+            {% for bike in recommended_bikes %}
+            <div class="bike-card">
+                <div class="bike-card__image">
+                    <img src="{{ bike.image.url }}" alt="{{ bike.name }}">
+                    <div class="bike-card__overlay">
+                        <a href="{% url 'firstpractooos:product' bike.id %}" class="btn btn--white">Подробнее</a>
+                    </div>
+                </div>
+                <div class="bike-card__content">
+                    <h3 class="bike-card__title">{{ bike.name }}</h3>
+                    <div class="bike-card__price">{{ bike.price }} ₽</div>
+                    <button class="btn btn--small add-to-cart" data-id="{{ bike.id }}">В корзину</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

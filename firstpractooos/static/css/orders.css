@@ -1,0 +1,211 @@
+
+.order-create-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+}
+
+.order-title {
+    font-size: 2.2rem;
+    margin: 0 0 30px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.order-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.order-summary {
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+.summary-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.order-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-name {
+    flex: 2;
+}
+
+.item-quantity,
+.item-total {
+    flex: 1;
+    text-align: right;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    padding-top: 15px;
+    border-top: 2px solid #000;
+    margin-top: 15px;
+}
+
+.order-form {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    font-size: 0.95rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: 1px solid #999;
+    background: #fff;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    grid-column: span 2;
+}
+
+.btn {
+    padding: 12px 24px;
+    border-radius: 0;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid #333;
+    background: transparent;
+    color: #333;
+}
+
+.btn-primary {
+    background: #333;
+    color: #fff;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #333;
+}
+
+.btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+.errorlist {
+    color: #d9534f;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+    font-size: 0.85rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .order-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-title {
+        font-size: 1.8rem;
+    }
+    
+    .order-item {
+        flex-direction: column;
+    }
+    
+    .item-quantity,
+    .item-total {
+        text-align: left;
+        margin-top: 5px;
+    }
+}

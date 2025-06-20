@@ -1,0 +1,35 @@
+.order-create {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.order-summary {
+    background: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.order-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-summary li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-summary .total {
+    font-size: 1.2em;
+    text-align: right;
+    margin-top: 15px;
+}
+
+.order-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}

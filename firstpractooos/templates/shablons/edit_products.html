@@ -1,0 +1,89 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block title %}Редактирование - {{ bike.name }}{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="edit-product">
+  <div class="pm-container">
+    <h1 class="pm-title">Редактирование товара: {{ bike.name }}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="pm-form" action="{% url 'firstpractooos:edit_product' bike.id %}">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="pm-form-group">
+        <label for="{{ form.name.id_for_label }}">Название</label>
+        {{ form.name }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.price.id_for_label }}">Цена (₽)</label>
+        {{ form.price }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.image.id_for_label }}">Изображение</label>
+        {{ form.image }}
+        {% if bike.image %}
+          <div class="pm-preview-image">
+            <img src="{{ bike.image.url }}" alt="{{ bike.name }}" width="200">
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.max_speed.id_for_label }}">Макс. скорость</label>
+        {{ form.max_speed }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.fuel_consumption.id_for_label }}">Расход топлива</label>
+        {{ form.fuel_consumption }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.weight.id_for_label }}">Вес</label>
+        {{ form.weight }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.description.id_for_label }}">Описание</label>
+        {{ form.description }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.engine.id_for_label }}">Двигатель</label>
+        {{ form.engine }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.engine_type.id_for_label }}">Тип двигателя</label>
+        {{ form.engine_type }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.power.id_for_label }}">Мощность</label>
+        {{ form.power }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.gearbox.id_for_label }}">Коробка передач</label>
+        {{ form.gearbox }}
+      </div>
+
+      <div class="pm-form-group">
+        <label for="{{ form.dimensions.id_for_label }}">Габариты</label>
+        {{ form.dimensions }}
+      </div>
+
+      <button type="submit" class="pm-btn pm-btn--primary">Сохранить изменения</button>
+      <a href="{% url 'firstpractooos:view_product' bike.id %}" class="pm-btn pm-btn--secondary">Отмена</a>
+    </form>
+  </div>
+</section>
+{% endblock %}

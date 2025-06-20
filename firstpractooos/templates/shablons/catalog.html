@@ -1,0 +1,145 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block title %}MotoMarket - Каталог мотоциклов{% endblock %}
+
+{% block content %}
+<section class="catalog">
+    <div class="container">
+        <div class="catalog-header">
+            <h1 class="section-title slide-up">Каталог мотоциклов</h1>
+            <div class="catalog-actions">
+               {% if user.is_staff or user.groups.all.0.name == "Продавцы" %}
+                <a href="{% url 'firstpractooos:add_product' %}" class="btn btn--primary">
+                    <i class="fas fa-plus-circle"></i> Добавить товар
+                </a>
+                {% endif %}
+                <a href="{% url 'firstpractooos:contacts' %}" class="btn btn--outline">
+                    <i class="fas fa-phone-alt"></i> Контакты
+                </a>
+            </div>
+        </div>
+
+            <div class="catalog-filters fade-in delay-1">
+        <div class="filter-group">
+            <label for="category">Категория:</label>
+            <select id="category" class="filter-select">
+                <option value="all">Все категории</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}" 
+                        {% if category.id == active_category %}selected{% endif %}>
+                    {{ category.category_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="tags">Теги:</label>
+            <select id="tags" class="filter-select">
+                <option value="all">Все теги</option>
+                {% for tag in tags %}
+                <option value="{{ tag.slug }}" 
+                        {% if tag.slug == active_tag %}selected{% endif %}>
+                    {{ tag.tag_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="price">Цена:</label>
+            <select id="price" class="filter-select">
+                <option value="all">Любая цена</option>
+                <option value="0-500000">До 500 000₽</option>
+                <option value="500000-1000000">500 000 - 1 000 000₽</option>
+                <option value="1000000">От 1 000 000₽</option>
+            </select>
+        </div>
+        
+        <button id="resetFilters" class="btn btn--secondary">
+            <i class="fas fa-times"></i> Сбросить
+        </button>
+    </div>
+
+        {% if product_detail %}
+        <div class="product-detail-view fade-in">
+            {% include 'shablons/view_product.html' with bike=product_detail %}
+        </div>
+        {% else %}
+<div class="catalog-grid">
+    {% for product in products %}
+    <div class="bike-card slide-up delay-{% cycle '1' '2' '3' %}">
+        <a href="{% url 'firstpractooos:view_product' product.id %}" class="bike-card__link">
+            <div class="bike-card__image">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
+                {% else %}
+                    <img src="{% static 'img/no-image.jpg' %}" alt="No image">
+                {% endif %}
+                <div class="bike-card__overlay">
+                    <span class="btn btn--white">Подробнее</span>
+                </div>
+            </div>
+            <div class="bike-card__content">
+                <h3 class="bike-card__title">{{ product.product_name }}</h3>
+                <div class="bike-card__meta">
+                    <span class="bike-card__category">{{ product.category.category_name }}</span>
+                    <div class="bike-card__tags">
+                        {% for tag in product.tags.all %}
+                        <span class="tag-link">{{ tag.tag_name }}</span>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="bike-card__price">{{ product.price }} ₽</div>
+            </div>
+        </a>
+            <div class="bike-card__actions">
+                <form action="{% url 'cart:cart_add' product.id %}" method="post" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn btn--small add-to-cart-btn">
+                        <i class="fas fa-shopping-cart"></i> В корзину
+                        <span class="add-animation">+1</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+            {% empty %}
+            <div class="empty-catalog">
+                <i class="fas fa-motorcycle"></i>
+                <p>Нет товаров, соответствующих выбранным фильтрам</p>
+                <a href="{% url 'firstpractooos:catalog' %}" class="btn btn--primary">
+                    Показать все товары
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if is_paginated %}
+        <div class="pagination fade-in delay-2">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="pagination__item">
+                &laquo;
+            </a>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a href="?page={{ num }}" class="pagination__item active">{{ num }}</a>
+            {% else %}
+            <a href="?page={{ num }}" class="pagination__item">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="pagination__item">
+                &raquo;
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+<script src="{% static 'js/add2_product.js' %}"></script>
+{% endblock %}

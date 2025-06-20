@@ -1,0 +1,59 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/order-confirmed.css' %}">
+{% endblock %}
+
+{% block title %}Заказ оформлен{% endblock %}
+
+{% block content %}
+<div class="confirmation-wrapper">
+    <div class="confirmation-card">
+        <div class="confirmation-header">
+            <i class="fas fa-check-circle confirmation-icon"></i>
+            <h1 class="confirmation-title">Ваш заказ успешно оформлен!</h1>
+            <p class="confirmation-number">Номер заказа: <span class="highlight-number">{{ order.order_number }}</span></p>
+            <p class="confirmation-notice">Мы свяжемся с вами в ближайшее время для подтверждения заказа.</p>
+        </div>
+        
+        <div class="order-details-section">
+            <h2 class="details-heading">Детали заказа</h2>
+            <ul class="details-list">
+                <li class="detail-item">
+                    <span class="detail-label">Имя:</span>
+                    <span class="detail-value">{{ customer_name }}</span>
+                </li>
+                <li class="detail-item">
+                    <span class="detail-label">Email:</span>
+                    <span class="detail-value">{{ email }}</span>
+                </li>
+                <li class="detail-item">
+                    <span class="detail-label">Телефон:</span>
+                    <span class="detail-value">{{ phone }}</span>
+                </li>
+                <li class="detail-item">
+                    <span class="detail-label">Адрес:</span>
+                    <span class="detail-value">{{ city }}, {{ address }}, {{ postal_code }}</span>
+                </li>
+                {% if comments %}
+                <li class="detail-item">
+                    <span class="detail-label">Комментарий:</span>
+                    <span class="detail-value">{{ comments }}</span>
+                </li>
+                {% endif %}
+                <li class="detail-item total-item">
+                    <span class="detail-label">Сумма заказа:</span>
+                    <span class="detail-value">{{ total_price }} ₽</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'firstpractooos:catalog' %}" class="catalog-link">
+                Вернуться в каталог
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

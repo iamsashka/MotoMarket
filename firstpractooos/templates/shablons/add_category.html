@@ -1,0 +1,24 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block title %}MotoMarket - Добавить категорию{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Добавить новую категорию</h1>
+    
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_category_name" class="form-label">Название категории</label>
+            {{ form.category_name }}
+        </div>
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Описание</label>
+            {{ form.description }}
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'firstpractooos:category_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

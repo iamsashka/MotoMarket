@@ -1,0 +1,13 @@
+{% extends 'shablons/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Удалить товар</h2>
+    <p>Вы уверены, что хотите удалить товар с ID {{ id }}?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Удалить</button>
+      <a href="{% url 'firstpractooos:api' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+  </div>
+{% endblock %}

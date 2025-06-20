@@ -1,0 +1,67 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+{% block content %}
+<div class="cart-page-container">
+    <h1 class="cart-page-title">Ваша корзина</h1>
+    
+    {% if cart %}
+    <table class="cart-items-table">
+        <thead>
+            <tr>
+                <th>Изображение</th>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена</th>
+                <th>Итого</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+            {% with product=item.product %}
+            <tr>
+                <td>
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{{ product.image.url }}" class="cart-item-image">
+                    </a>
+                </td>
+                <td class="cart-item-name">{{ product.product_name }}</td>
+                <td>
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post" class="cart-quantity-form">
+                        {% csrf_token %}
+                        {{ item.update_quantity_form.quantity }}
+                        {{ item.update_quantity_form.update }}
+                        <button type="submit" class="cart-update-btn">Обновить</button>
+                    </form>
+                </td>
+                <td>{{ item.price }} руб.</td>
+                <td>{{ item.total_price }} руб.</td>
+                <td>
+                    <a href="{% url 'cart:cart_remove' product.id %}" class="cart-remove-btn">×</a>
+                </td>
+            </tr>
+            {% endwith %}
+            {% endfor %}
+            <tr class="cart-total-row">
+                <td colspan="4">Всего:</td>
+                <td colspan="2">{{ cart.get_total_price }} руб.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="cart-actions-container">
+        <a href="{% url 'firstpractooos:catalog' %}" class="cart-continue-btn">Продолжить покупки</a>
+        <a href="{% url 'cart:cart_clear' %}" class="cart-clear-btn">Очистить корзину</a>   
+        <a href="{% url 'orders:order_create' %}" class="cart-checkout-btn">Оформить заказ</a>
+    </div>
+    {% else %}
+    <div class="cart-empty-message">
+        <p>Ваша корзина пуста</p>
+        <a href="{% url 'firstpractooos:catalog' %}" class="cart-continue-btn">Начать покупки</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

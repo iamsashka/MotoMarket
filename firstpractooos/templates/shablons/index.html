@@ -1,0 +1,87 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block title %}MotoMarket - Продажа мотоциклов{% endblock %}
+
+{% block content %}
+<section class="hero-slider">
+  <div class="hero-slide active" style="background-image: url('{% static "img/bikes/hero1.jpg" %}')">
+    <div class="overlay"></div>
+    <div class="hero__content center">
+      <h1 class="hero__title">Новая коллекция 2023</h1>
+      <p class="hero__text">Мощь и стиль в каждой детали</p>
+      <a href="{% url 'firstpractooos:catalog' %}" class="btns btns--white btns--large">Смотреть каталог</a>
+      <a href="{% url 'firstpractooos:category_list' %}" class="btns btns--outline-white btns--large">Все категории</a>
+    </div>
+  </div>
+  <div class="hero-slide" style="background-image: url('{% static "img/bikes/hero2.jpg" %}')">
+    <div class="overlay"></div>
+    <div class="hero__content center">
+      <h1 class="hero__title">Скорость без границ</h1>
+      <p class="hero__text">Испытай свободу на дороге</p>
+      <a href="{% url 'firstpractooos:catalog' %}" class="btn btn--white btn--large">Выбрать байк</a>
+    </div>
+  </div>
+  <div class="hero-slide" style="background-image: url('{% static "img/bikes/hero3.jpg" %}')">
+    <div class="overlay"></div>
+    <div class="hero__content center">
+      <h1 class="hero__title">Готов к любому вызову</h1>
+      <p class="hero__text">Надёжность. Дизайн. Производительность.</p>
+      <a href="{% url 'firstpractooos:catalog' %}" class="btn btn--white btn--large">Узнать больше</a>
+    </div>
+  </div>
+</section>
+<section class="features">
+    <div class="container">
+        <div class="features__inner">
+            <div class="feature">
+                <div class="feature__icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature__title">Гарантия 2 года</h3>
+                <p class="feature__text">На все модели</p>
+            </div>
+            <div class="feature">
+                <div class="feature__icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3 class="feature__title">Бесплатная доставка</h3>
+                <p class="feature__text">По всей России</p>
+            </div>
+            <div class="feature">
+                <div class="feature__icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="feature__title">Поддержка 24/7</h3>
+                <p class="feature__text">Консультации экспертов</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="popular">
+    <div class="container">
+        <h2 class="section-title">Популярные модели</h2>
+        <div class="popular__grid">
+            {% for bike in popular_bikes %}
+            <div class="bike-card">
+                <div class="bike-card__image">
+                    <img src="{{ bike.image.url }}" alt="{{ bike.name }}">
+                    <div class="bike-card__overlay">
+                        <a href="{% url 'firstpractooos:product' bike.id %}" class="btn btn--white">Подробнее</a>
+                    </div>
+                </div>
+                <div class="bike-card__content">
+                    <h3 class="bike-card__title">{{ bike.name }}</h3>
+                    <div class="bike-card__price">{{ bike.price }} ₽</div>
+                    <button class="btn btn--small add-to-cart" data-id="{{ bike.id }}">В корзину</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

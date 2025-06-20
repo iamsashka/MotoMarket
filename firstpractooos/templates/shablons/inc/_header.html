@@ -1,0 +1,32 @@
+{% load static %}
+<header class="header">
+  <div class="container">
+    <div class="header__inner">
+      <a href="{% url 'firstpractooos:index' %}" class="logo">
+        <img src="{% static 'img/logo.jpg' %}" alt="MotoMarket">
+      </a>
+      
+      {% include 'shablons/inc/_navigation.html' %}
+      
+      <div class="header__right">
+        <a href="{% url 'cart:cart_detail' %}" class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          {% with total_items=cart|length %}
+          <span class="cart-count">
+            {% if total_items > 0 %}
+                {{ total_items }}
+              {% else %}
+                0
+              {% endif %}
+          </span>
+          {% endwith %}
+        </a>
+        <button class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

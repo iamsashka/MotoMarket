@@ -1,0 +1,92 @@
+{% extends 'shablons/base.html' %}
+
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/kabinet.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="user-dashboard-wrapper">
+  {% if user.is_authenticated %}
+    <aside class="user-dashboard-sidebar">
+      <div class="user-card">
+        <img src="{% static 'img/avatar_placeholder.jpg' %}" alt="Аватар" class="user-avatar-img" />
+        <div class="user-meta">
+          <span class="user-fullname">
+            {% if user.first_name and user.last_name %}
+              {{ user.first_name }} {{ user.last_name }}
+            {% else %}
+              {{ user.username }}
+            {% endif %}
+          </span>
+          <span class="user-status">
+            {% if user.is_staff %}Администратор{% else %}Пользователь{% endif %}
+          </span>
+        </div>
+      </div>
+      <nav class="user-menu">
+        <ul>
+          <li class="user-menu-item active">
+            <a href="{% url 'firstpractooos:account' %}">Профиль</a>
+          </li>
+          <li class="user-menu-item">
+            <a href="#">Настройки</a>
+          </li>
+          <li class="user-menu-item">
+            <a href="">Мои заказы</a>
+          </li>
+          <li class="user-menu-item">
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="user-menu-link" style="background:none;border:none;cursor:pointer;padding:0;font:inherit;color:inherit;width:100%;text-align:left;">
+                Выйти
+              </button>
+            </form>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="user-dashboard-main">
+      <h1 class="dashboard-heading">Панель пользователя</h1>
+      <section class="user-info-section">
+        <h2 class="section-subheading">Личная информация</h2>
+        <div class="user-info-grid">
+          <div class="user-info-item">
+            <span class="user-info-label">Имя пользователя:</span>
+            <span class="user-info-value">{{ user.username }}</span>
+          </div>
+          {% if user.first_name %}
+          <div class="user-info-item">
+            <span class="user-info-label">Имя:</span>
+            <span class="user-info-value">{{ user.first_name }}</span>
+          </div>
+          {% endif %}
+          {% if user.last_name %}
+          <div class="user-info-item">
+            <span class="user-info-label">Фамилия:</span>
+            <span class="user-info-value">{{ user.last_name }}</span>
+          </div>
+          {% endif %}
+          {% if user.email %}
+          <div class="user-info-item">
+            <span class="user-info-label">Email:</span>
+            <span class="user-info-value">{{ user.email }}</span>
+          </div>
+          {% endif %}
+        </div>
+      </section>
+    </main>
+  {% else %}
+    <div class="auth-required-message">
+      <h2>Ваш профиль</h2>
+      <p>Для просмотра этой страницы необходимо войти в систему.</p>
+      <div class="auth-links">
+        <a href="{% url 'users:login' %}" class="btn btn-primary">Войти</a>
+        <a href="{% url 'users:signup' %}" class="btn btn-secondary">Зарегистрироваться</a>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

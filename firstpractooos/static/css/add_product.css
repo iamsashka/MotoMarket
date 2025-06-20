@@ -1,0 +1,74 @@
+.wrapper-motoform {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: var(--light); /* светлый фон, белый */
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  font-family: 'Montserrat', sans-serif;
+  color: var(--dark);
+}
+
+.wrapper-motoform h1 {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.form-motoform label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+
+.form-motoform input[type="text"],
+.form-motoform input[type="number"],
+.form-motoform select,
+.form-motoform textarea,
+.form-motoform input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--dark);
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-motoform input[type="text"]:focus,
+.form-motoform input[type="number"]:focus,
+.form-motoform select:focus,
+.form-motoform textarea:focus,
+.form-motoform input[type="file"]:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.form-motoform textarea {
+  resize: vertical;
+}
+
+.btn-motoform-submit {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px 0;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease;
+}
+
+.btn-motoform-submit:hover {
+  background-color: #e04323;
+}
+    

@@ -1,0 +1,95 @@
+<!-- shablons/view_product.html (исправленная версия) -->
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block title %}MotoMarket - {{ product.product_name }}{% endblock %}
+
+{% block content %}
+<section class="pm-product">
+    <div class="pm-container">
+        <div class="pm-product__inner">
+            <div class="pm-gallery">
+                <div class="pm-main-image">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
+                    {% else %}
+                        <img src="{% static 'img/no-image.jpg' %}" alt="No image">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="pm-info">
+                <h1 class="pm-title">{{ product.product_name }}</h1>
+                <div class="pm-price">{{ product.price }} ₽</div>
+
+                <div class="pm-add-to-cart">
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post" class="add-to-cart-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="update" value="False">
+                        <button type="submit" class="pm-btn pm-btn--primary add-to-cart-btn">
+                            <i class="fas fa-shopping-cart"></i> В корзину
+                        </button>
+                    </form>
+                </div>
+
+                <div class="pm-meta">
+                    <div class="pm-meta-item">
+                        <i class="fas fa-tags"></i>
+                        <span>Теги: 
+                            {% for tag in product.tags.all %}
+                            <a href="{% url 'firstpractooos:catalog' %}?tag_id={{ tag.id }}" class="tag-link">
+                                {{ tag.tag_name }}
+                            </a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </span>
+                    </div>
+                    <div class="pm-meta-item">
+                        <i class="fas fa-folder"></i>
+                        <span>Категория: 
+                            <a href="{% url 'firstpractooos:catalog_by_category' product.category.id %}">
+                                {{ product.category.category_name }}
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="pm-description">
+                    <h3>Описание</h3>
+                    <p>{{ product.description }}</p>
+                </div>
+
+                <div class="pm-actions">
+                    <a href="{% url 'firstpractooos:catalog' %}" class="pm-btn pm-btn--outline">Назад в каталог</a>
+                    {% if user.is_staff or user.groups.all.0.name == "Продавцы" %}
+                    <a href="{% url 'firstpractooos:edit_product' product.id %}" class="pm-btn pm-btn--primary">Редактировать</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pm-related-products">
+    <div class="pm-container">
+        <h2 class="pm-section-title">Похожие мотоциклы</h2>
+        <div class="pm-related-slider">
+            {% for related in related_products %}
+            <div class="pm-bike-card">
+                <div class="pm-bike-card__image">
+                    <img src="{{ related.image.url }}" alt="{{ related.product_name }}">
+                    <div class="pm-bike-card__overlay">
+                        <a href="{% url 'firstpractooos:view_product' related.id %}" class="pm-btn pm-btn--white">Подробнее</a>
+                    </div>
+                </div>
+                <div class="pm-bike-card__content">
+                    <h3 class="pm-bike-card__title">{{ related.product_name }}</h3>
+                    <div class="pm-bike-card__price">{{ related.price }} ₽</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/add_product.js' %}"></script>
+{% endblock %}

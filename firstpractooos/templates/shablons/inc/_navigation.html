@@ -1,0 +1,15 @@
+{% url 'firstpractooos:index' as index_url %}
+{% url 'firstpractooos:catalog' as catalog_url %}
+{% url 'firstpractooos:api' as api_url %}
+{% url 'firstpractooos:account' as account_url %}
+
+<nav class="nav">
+  <ul class="nav__list">
+    <li class="nav__item"><a href="{{ index_url }}" class="nav__link">Главная</a></li>
+    <li class="nav__item"><a href="{{ catalog_url }}" class="nav__link">Каталог</a></li>
+    {% if user.is_staff or user.groups.all.0.name == "Продавцы" %}
+    <li class="nav__item"><a href="{{ api_url }}" class="nav__link">API</a></li>
+    {% endif %}
+    <li class="nav__item"><a href="{{ account_url }}" class="nav__link" title="Личный кабинет"><i class="fas fa-user"></i></a></li>
+  </ul>
+</nav>

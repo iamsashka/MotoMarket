@@ -1,0 +1,39 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/add_product.css' %}">
+
+{% block content %}
+<div class="wrapper-motoform">
+    <h1>Добавление нового товара</h1>
+    <form action="" method="POST" enctype="multipart/form-data" class="form-motoform">
+        {% csrf_token %}
+        <label for="name">Название:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="image">Изображение:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <label for="category">Категория:</label>
+        <select id="category" name="category" required>
+            <option value="">Выберите категорию</option>
+            <option value="Спорт">Спорт</option>
+            <option value="Круизер">Круизер</option>
+            <option value="Туризм">Туризм</option>
+            <option value="Другое">Другое</option>
+        </select>
+
+        <label for="engine">Объём двигателя (см³):</label>
+        <input type="number" id="engine" name="engine" required min="50">
+
+        <label for="price">Цена (₽):</label>
+        <input type="number" id="price" name="price" required min="0">
+
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <button type="submit" class="btn-motoform-submit">Добавить товар</button>
+    </form>
+</div>
+{% endblock %}

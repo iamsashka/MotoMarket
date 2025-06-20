@@ -1,0 +1,97 @@
+{% extends 'shablons/base.html' %}
+{% load static %}
+
+{% block title %}MotoMarket - Контакты{% endblock %}
+
+{% block content %}
+<section class="contacts-hero">
+    <div class="container">
+        <h1 class="section-title slide-up">Контакты</h1>
+    </div>
+</section>
+
+<section class="contacts">
+    <div class="container">
+        <div class="contacts__grid">
+            <div class="contacts__info fade-in">
+                <h2 class="contacts__title">Наши контакты</h2>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Адрес</h3>
+                        <p>г. Москва, ул. Мотоциклетная, д. 12</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Телефон</h3>
+                        <p>+7 (495) 123-45-67</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p>info@motomarket.ru</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Режим работы</h3>
+                        <p>Пн-Пт: 10:00 - 20:00<br>Сб-Вс: 11:00 - 18:00</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="contacts__form slide-up delay-1">
+                <h2 class="contacts__title">Обратная связь</h2>
+                <form class="feedback-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Телефон" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Ваше сообщение" class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="map fade-in delay-2">
+    <div class="container">
+        <h2 class="section-title">Мы на карте</h2>
+        <div class="map-container">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j&amp;source=constructor" frameborder="0"></iframe>
+        </div>
+    </div>
+</section>
+{% endblock %}
